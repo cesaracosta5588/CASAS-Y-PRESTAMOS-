@@ -2,74 +2,51 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Préstamos y Compra de Casas</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Préstamos Rápidos</title>
 <style>
-
 body{
-font-family: Arial;
+font-family:Arial, Helvetica, sans-serif;
+background:#f4f6f8;
 margin:0;
-background:#f2f2f2;
+padding:0;
+text-align:center;
 }
-
-.header{
-background:#c40000;
+header{
+background:#1e88e5;
 color:white;
-text-align:center;
-padding:30px;
-font-size:28px;
-font-weight:bold;
+padding:20px;
 }
-
-.sub{
-background:#f2b705;
-text-align:center;
-padding:15px;
-font-size:20px;
-font-weight:bold;
-}
-
 .container{
-width:420px;
-margin:30px auto;
+max-width:600px;
+margin:auto;
 background:white;
-padding:25px;
+padding:30px;
+margin-top:30px;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
+box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
-
-input,select,textarea{
+input,button{
 width:100%;
 padding:12px;
-margin:8px 0;
-border:1px solid #ccc;
+margin:10px 0;
 border-radius:6px;
-font-size:15px;
+border:1px solid #ccc;
+font-size:16px;
 }
-
 button{
-width:100%;
-padding:14px;
-background:#25D366;
+background:#1e88e5;
 color:white;
 border:none;
-border-radius:6px;
-font-size:18px;
 cursor:pointer;
 }
-
 button:hover{
-background:#1ebe5d;
+background:#1565c0;
 }
-
-.requisitos{
-background:#fff3cd;
-padding:15px;
-margin-top:20px;
-border-radius:6px;
-font-size:14px;
+#resultado{
+font-weight:bold;
+margin-top:10px;
 }
-
 .whatsapp{
 position:fixed;
 bottom:20px;
@@ -78,87 +55,71 @@ background:#25D366;
 color:white;
 padding:15px 20px;
 border-radius:50px;
-font-size:18px;
 text-decoration:none;
+font-size:18px;
 box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
-
 </style>
 </head>
-
 <body>
 
-<div class="header">
-¿QUIERES VENDER TU CASA?
-</div>
-
-<div class="sub">
-Préstamos hasta $500,000 en efectivo
-</div>
+<header>
+<h1>Préstamos Rápidos</h1>
+<p>Solicita tu préstamo en minutos</p>
+</header>
 
 <div class="container">
 
-<h3>Solicita información</h3>
+<h2>Solicitud de préstamo</h2>
 
-<form onsubmit="enviar(); return false;">
+<form action="mailto:cesaracostamacias397@gmail.com" method="post" enctype="text/plain">
 
-<input type="text" id="nombre" placeholder="Nombre completo" required>
+<input type="text" name="Nombre" placeholder="Tu nombre" required>
 
-<input type="tel" id="telefono" placeholder="Teléfono / WhatsApp" required>
+<input type="tel" name="Telefono" placeholder="Tu teléfono" required>
 
-<select id="tipo">
-<option>Quiero vender mi casa</option>
-<option>Necesito préstamo</option>
-</select>
+<input type="number" name="Monto" placeholder="Monto que necesitas" required>
 
-<input type="text" id="direccion" placeholder="Colonia o dirección">
+<input type="number" name="Meses" placeholder="Meses para pagar" required>
 
-<input type="number" id="monto" placeholder="Monto que necesita">
-
-<textarea id="mensaje" placeholder="Mensaje"></textarea>
-
-<button type="submit">Enviar solicitud</button>
+<button type="submit" onclick="mensaje()">Enviar solicitud</button>
 
 </form>
 
-<div class="requisitos">
-<b>Requisitos:</b><br>
-INE<br>
-Comprobante de domicilio<br>
-Estado de cuenta bancario<br>
-Referencia
-</div>
+<hr>
+
+<h3>Calculadora de préstamo</h3>
+
+<input type="number" id="montoCalc" placeholder="Monto del préstamo">
+
+<input type="number" id="mesesCalc" placeholder="Meses">
+
+<button onclick="calcular()">Calcular pago</button>
+
+<p id="resultado"></p>
 
 </div>
 
-<a class="whatsapp" href="https://wa.me/528120075953" target="_blank">
-WhatsApp
-</a>
+<a href="https://wa.me/528120075953" class="whatsapp">WhatsApp</a>
 
 <script>
+function calcular(){
 
-function enviar(){
+var monto=document.getElementById("montoCalc").value;
+var meses=document.getElementById("mesesCalc").value;
 
-var nombre=document.getElementById("nombre").value;
-var telefono=document.getElementById("telefono").value;
-var tipo=document.getElementById("tipo").value;
-var direccion=document.getElementById("direccion").value;
-var monto=document.getElementById("monto").value;
-var mensaje=document.getElementById("mensaje").value;
+var interes=0.20;
 
-var url="https://wa.me/528120075953?text="
-+"SOLICITUD%0A"
-+"Nombre: "+nombre+"%0A"
-+"Telefono: "+telefono+"%0A"
-+"Tipo: "+tipo+"%0A"
-+"Direccion: "+direccion+"%0A"
-+"Monto: "+monto+"%0A"
-+"Mensaje: "+mensaje;
+var total=(monto*(1+interes))/meses;
 
-window.open(url);
+document.getElementById("resultado").innerHTML=
+"Pago mensual aproximado: $"+Number(total).toFixed(2);
 
 }
 
+function mensaje(){
+alert("Solicitud enviada ✔️ En breve nos comunicaremos contigo.");
+}
 </script>
 
 </body>
