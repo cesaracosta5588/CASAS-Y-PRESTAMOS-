@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>CASAS Y PRÉSTAMOS</title>
-</head>
+function enviarWhats(){
+    let nombre = document.querySelector('[name="nombre"]').value;
+    let tel = document.querySelector('[name="telefono"]').value;
+    let nss = document.querySelector('[name="nss"]').value;
+    let servicio = document.querySelector('[name="servicio"]').value;
 
-<body>
+    let mensaje = `Hola, soy ${nombre}
+Teléfono: ${tel}
+NSS: ${nss}
+Servicio: ${servicio}`;
 
-<h1>CASAS Y PRÉSTAMOS</h1>
+    let url = `https://wa.me/5218133651952?text=${encodeURIComponent(mensaje)}`;
 
-<p>Préstamos hasta $500,000</p>
-
-<p>Contacto WhatsApp: 8120075953</p>
-
-</body>
-</html>
+    window.open(url, "_blank");
+}
