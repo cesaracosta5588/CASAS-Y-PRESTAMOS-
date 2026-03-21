@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Préstamos y Bienes Raíces</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    margin:0;
+}
+
+.container{
+    width:90%;
+    max-width:420px;
+    margin:40px auto;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+h1{
+    text-align:center;
+    font-size:26px;
+    font-weight:bold;
+    color:#2c5364;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:#2c5364;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1e3c50;
+}
+
+.whatsapp{
+    background:#25D366;
+    margin-top:10px;
+}
+
+.success{
+    display:none;
+    color:green;
+    text-align:center;
+    margin-top:10px;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Solicitud</h1>
+
+<form id="form">
+
+<input type="text" name="nombre" placeholder="Nombre completo" required>
+<input type="tel" name="telefono" placeholder="Teléfono" required>
+<input type="email" name="correo" placeholder="Correo" required>
+
+<select name="servicio">
+<option>Préstamo</option>
+<option>Compra de Casa</option>
+<option>Venta de Casa</option>
+</select>
+
+<input type="number" name="monto" placeholder="Monto o presupuesto">
+
+<button type="submit">Enviar</button>
+
+<button type="button" class="whatsapp" onclick="enviarWhats()">Enviar por WhatsApp</button>
+
+<div class="success" id="mensaje">✅ Enviado correctamente</div>
+
+</form>
+
+</div>
+
+<script>
+
+// 👉 EMAILJS
+emailjs.init("TU_PUBLIC_KEY");
+
+document.getElementById("form").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    emailjs.sendForm("TU_SERVICE_ID","TU_TEMPLATE_ID",this)
+    .then(function(){
+        document.getElementById("mensaje").style.display="block";
+    }, function(error){
+        alert("Error EmailJS");
+    });
+
+    guardarDatos(); // guarda también en hoja
+});
+
+// 👉 WHATSAPP
+function enviarWhats(){
+    let nombre = document.querySelector('[name="nombre"]').value;
+    let tel = document.querySelector('[name="telefono"]').value;
+    let servicio = document.querySelector('[name="servicio"]').value;
+
+    let mensaje = `Hola, soy ${nombre}, Tel: ${tel}, estoy interesado en ${servicio}`;
+
+    let url = `https://wa.me/521XXXXXXXXXX?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, "_blank");
+}
+
+// 👉 GUARDAR EN GOOGLE SHEETS
+function guardarDatos(){
+
+fetch("TU_URL_GOOGLE_SCRIPT", {
+    method: "POST",
+    body: new FormData(document.getElementById("form"))
+})
+.then(res => console.log("Guardado"))
+.catch(err => console.log("Error"));
+
+}
+
+</script>
+
+</body>
+</html>
